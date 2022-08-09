@@ -54,4 +54,3 @@ jobs:
             docker load deprek8ion.tar
             docker tag deprek8ion ttl.sh/deprek8ion:6h
             docker push ttl.sh/deprek8ion:6h
-
