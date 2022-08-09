@@ -10,8 +10,6 @@ The Kubernetes API deprecations can be found using <https://relnotes.k8s.io/?mar
 
 The docker container contains the most recent version of [conftest](https://www.conftest.dev/) as well as the policies at `/policies`.
 
-Image tags can be found at [ttl.sh/deprek8ion](ttl.sh/deprek8ion)
-
 ## Example usage
 
 An example of how to use the docker container can be seen below:
