@@ -51,6 +51,6 @@ jobs:
           path: ./
       - name: tag and push image
         run: |
-            docker load deprek8ion.tar
+            docker load -i deprek8ion.tar
             docker tag deprek8ion ttl.sh/deprek8ion:6h
             docker push ttl.sh/deprek8ion:6h
