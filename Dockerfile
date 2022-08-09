@@ -1,7 +1,7 @@
-FROM instrumenta/conftest:v0.18.2
+FROM golang:alpine3.16 as builder
+RUN CGO_ENABLED=0 go install github.com/open-policy-agent/conftest@latest
 
-LABEL MAINTAINER Steven Wade <steven@stevenwade.co.uk>
-
+FROM scratch
+COPY --from=builder /go/bin/conftest /opt/
 COPY policies/* /policies/
-
-ENTRYPOINT ["/conftest", "test", "-p", "/policies"]
+ENTRYPOINT ["/opt/conftest", "test", "-p", "/policies"]
