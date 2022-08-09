@@ -19,6 +19,6 @@ An example of how to use the docker container can be seen below:
 docker run --rm --name demo -v $(pwd)/demo:/demo ttl.sh/deprek8ion /demo/ingress.yaml
 ```
 Or directly pipe some resources into the container:
-
+```sh
 cat ./demo/ingress.yaml | docker run ttl.sh/deprek8ion -
 ```
