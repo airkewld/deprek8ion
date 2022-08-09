@@ -20,5 +20,5 @@ docker run --rm --name demo -v $(pwd)/demo:/demo ttl.sh/deprek8ion /demo/ingress
 ```
 Or directly pipe some resources into the container:
 
-cat ./demo/ingress.yaml | docker run --rm -i ttl.sh/deprek8ion -
+cat ./demo/ingress.yaml | docker run ttl.sh/deprek8ion -
 ```
