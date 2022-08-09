@@ -1,0 +1,57 @@
+name: build and deploy
+
+on:
+  pull_request:
+    branches:
+      - main
+  schedule:
+    # run every 6 hours
+    - cron: '0 */6 * * *'
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: build docker image
+        run: |
+            docker build . -t deprek8ion
+            docker save deprek8ion > deprek8ion.tar
+      - name: upload image for scanning
+        uses: actions/upload-artifact@v3
+        with:
+          name: deprek8ion.tar
+          path: deprek8ion.tar
+          retention-days: 1
+
+  scan-image:
+    needs: [build-image]
+    runs-on: ubuntu-latest
+    container:
+      image: aquasec/trivy
+    steps:
+      - name: download image tar
+        uses: actions/download-artifact@v3
+        with:
+          name: deprek8ion.tar
+          path: ./
+      - name: scan image for vulnerabilities
+        run: |
+            trivy image --input deprek8ion.tar --ignore-unfixed -s CRITICAL -s HIGH
+
+  push-image:
+    needs: [scan-image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: download image tar
+        uses: actions/download-artifact@v3
+        with:
+          name: deprek8ion.tar
+          path: ./
+      - name: tag and push image
+        run: |
+            docker load deprek8ion.tar
+            docker tag deprek8ion ttl.sh/deprek8ion:6h
+            docker push ttl.sh/deprek8ion:6h
+
