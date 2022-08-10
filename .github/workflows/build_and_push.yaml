@@ -43,6 +43,9 @@ jobs:
   push-image:
     needs: [scan-image]
     runs-on: ubuntu-latest
+    env:
+      REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+      REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
     steps:
       - name: download image tar
         uses: actions/download-artifact@v3
@@ -54,3 +57,6 @@ jobs:
             docker load -i deprek8ion.tar
             docker tag deprek8ion ttl.sh/deprek8ion
             docker push ttl.sh/deprek8ion
+            echo $REGISTRY_TOKEN | docker login -u $REGISTRY_USER --password-stdin
+            docker tag deprek8ion  airkewld/deprek8ion
+            docker push airkewld/deprek8ion
