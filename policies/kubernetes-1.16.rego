@@ -34,7 +34,7 @@ _deny = msg {
 _deny = msg {
   input.apiVersion == "extensions/v1beta1"
   input.kind == "NetworkPolicy"
-  msg := sprintf("%s/%s: API extensions/v1beta1 for NetworkPolicy has been deprecated, use networking.k8s.io/v1 instead.", [input.kind, input.metadata.name])
+  msg := sprintf("%s/%s: API extensions/v1beta1 for NetworkPolicy has been deprecated, use networking.k8s.io/v1 instead, available since v1.8", [input.kind, input.metadata.name])
 }
 
 # podsecuritypolicies resources under extensions/v1beta1 - use policy/v1beta1 instead

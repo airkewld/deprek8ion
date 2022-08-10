@@ -19,5 +19,5 @@ warn[msg] {
 _warn = msg {
   apis := ["rbac.authorization.k8s.io/v1alpha1", "rbac.authorization.k8s.io/v1beta1"]
   input.apiVersion == apis[_]
-  msg := sprintf("%s/%s: API %s is deprecated from Kubernetes 1.20, use rbac.authorization.k8s.io/v1 instead.", [input.kind, input.metadata.name, input.apiVersion])
+  msg := sprintf("%s/%s: API %s is deprecated from Kubernetes 1.20, use rbac.authorization.k8s.io/v1 instead, available since v1.8.", [input.kind, input.metadata.name, input.apiVersion])
 }
